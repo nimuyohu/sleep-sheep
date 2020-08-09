@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>読み上げテスト</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="./image/sleep_sheep.png">
+    <h1>眠れないあなたに<br>羊の数を読み上げてくれるサイトです</h1>
+    <form>
+        <input id="input_number" type = "number" min="1"  step="1" placeholder="1以上の整数を入力"/>匹まで数える。
+        <input type="button" onclick="func1();" value="決定">
+        <p>
+            ＊何も入力しないで数えると無限に羊を数えます。
+        </p>
+    </form>
+    <input type="button" value="羊を数える" id="startcount" onclick="startShowing();">
+    <input type="button" value="羊を数えるのを止める" id="endcount" onclick="stopShowing();">
+    <section id="speech">
+        <p id="PassageArea"></p>
+    </section>
+
+    <script>
+        var PassSec;   // 秒数カウント用変数
+        function func1() {
+            return document.getElementById("input_number").value;
+        }
+
+        // 繰り返し処理の中身
+        function showPassage(num) {
+            PassSec++;   // カウントアップ
+            var msg = "羊が " + PassSec + " 匹";   // 表示文作成
+            document.getElementById("PassageArea").innerHTML = msg;   // 表示更新
+            var msg = new SpeechSynthesisUtterance();
+            
+            msg.text = speech.textContent;
+            msg.lang = 'ja-JP';
+            window.speechSynthesis.speak(msg);
+            if (num <= PassSec){
+                console.log(num)
+                // console.log(PassSec)
+                stopShowing();
+            }
+        }
+        
+        // 繰り返し処理の開始
+        function startShowing() {
+            PassSec = 0;   // カウンタのリセット
+            var num = func1();
+            PassageID = setInterval('showPassage('+num+')',2800);   // タイマーをセット(1000ms間隔)
+            document.getElementById("startcount").disabled = true;   // 開始ボタンの無効化
+        }
+        
+        // 繰り返し処理の中止
+        function stopShowing() {
+            clearInterval( PassageID );   // タイマーのクリア
+            document.getElementById("startcount").disabled = false;   // 開始ボタンの有効化
+        }
+    </script>
+</body>
+</html>

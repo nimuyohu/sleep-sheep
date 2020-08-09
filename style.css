@@ -1,0 +1,16 @@
+img {
+    width: 110px;
+}
+body{
+    text-align: center;
+}
+#PassageArea{
+    font-size: 5rem;
+    font-weight: bold;
+}
+input{
+    font-size: 2.4em;
+    font-weight: bold;
+    padding: 10px 30px;
+    text-align: center;
+}
